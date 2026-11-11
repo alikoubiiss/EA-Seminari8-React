@@ -1,26 +1,23 @@
-# Backoffice — Autores y libros (React)
+# Backoffice autores y libros (React)
 
-Backoffice hecho con React 19, TypeScript y Vite para el Seminario 8 de EA. Es la versión en React del
-backoffice de Angular del Seminario 6: usa **la misma API REST** y tiene las mismas pantallas (listar, buscar,
-paginar, crear, editar y borrar autores y libros, con vista en tabla o en tarjetas).
+Backoffice hecho con React 19, TypeScript y Vite para el Seminario 8 de EA. Es lo mismo que el backoffice de Angular del Seminario 6 pero en React, usa la misma API y tiene las mismas pantallas (listar, buscar, paginar, crear, editar y borrar autores y libros).
 
-La explicación de cómo funciona por dentro (JSX, props, hooks, efectos, estado global, router...) está
-en [GUIA.md](GUIA.md). Hay un ejercicio propuesto en [EJERCICIO.md](EJERCICIO.md).
+En [GUIA.md](GUIA.md) hay mas explicacion de como funciona por dentro. El ejercicio esta en [EJERCICIO.md](EJERCICIO.md).
 
-## Requisitos
+## requisitos
 
-- [Node.js](https://nodejs.org/) 22.12 o superior.
-- [MongoDB](https://www.mongodb.com/), local o en Atlas, para el backend.
-- El backend arrancado (carpeta `EA-Seminari8-React-BackOffice-API`, es la API del Seminario 5).
-- Recomendado: VS Code y la extensión [React Developer Tools](https://react.dev/learn/react-developer-tools) en el navegador.
+- Node.js 22 o superior
+- MongoDB (local o Atlas) para el backend
+- el backend arrancado (carpeta EA-Seminari8-React-BackOffice-API)
+- recomendado VS Code
 
-## Cómo arrancarlo
+## como arrancarlo
 
-Hacen falta dos terminales: una para la API y otra para React.
+hacen falta dos terminales
 
-**1. Backend**
+**backend:**
 
-Con MongoDB ya arrancado (o con la URL de Atlas puesta en el `.env`):
+primero MongoDB tiene que estar corriendo (o tener la url de atlas en el .env)
 
 ```
 cd EA-Seminari8-React-BackOffice-API
@@ -30,11 +27,11 @@ npm run seed
 npm run dev
 ```
 
-La API queda en http://localhost:1337 y su documentación (Swagger) en http://localhost:1337/api-docs.
-`npm run seed` mete 5 autores y 12 libros de ejemplo; con `npm run seed -- --reset` se vuelven a poner
-desde cero. Todos los autores de ejemplo tienen la contraseña `seminari5`.
+la API queda en http://localhost:1337 y el swagger en http://localhost:1337/api-docs
 
-**2. Frontend (este proyecto)**
+el seed mete 5 autores y 12 libros de ejemplo, con `npm run seed -- --reset` se resetea todo. la contraseña de los autores de ejemplo es `seminari5`
+
+**frontend:**
 
 ```
 cd EA-Seminari8-React-BackOffice
@@ -42,11 +39,11 @@ npm install
 npm run dev
 ```
 
-Y se abre la dirección que enseña Vite (normalmente http://localhost:5173).
+abre la url que dice vite, normalmente http://localhost:5173
 
-## Configuración: un solo fichero
+## configuracion
 
-Para cambiar la dirección de la API se toca aquí y en ningún sitio más:
+si hay que cambiar la url de la api se hace en un solo sitio:
 
 ```typescript
 // src/config/environment.ts
@@ -55,93 +52,89 @@ export const environment = {
 };
 ```
 
-## Scripts
+## scripts disponibles
 
-| Comando | Qué hace |
+| comando | que hace |
 |---|---|
-| `npm run dev` | Servidor de desarrollo con Vite. La página se actualiza sola al guardar |
-| `npm run build` | Comprueba los tipos (`tsc`) y compila la versión de producción en `dist/` |
-| `npm run preview` | Sirve el contenido de `dist/` para probar la versión de producción |
-| `npm test` | Pasa los tests con Vitest una vez |
-| `npm run lint` | Analiza `src/` con Oxlint |
+| `npm run dev` | servidor de desarrollo, recarga solo al guardar |
+| `npm run build` | compila para produccion en dist/ |
+| `npm run preview` | sirve el dist/ para probar |
+| `npm test` | tests con vitest |
+| `npm run lint` | linter con oxlint |
 
-## Pantallas
+## pantallas
 
-| Ruta | Pantalla |
+| ruta | que es |
 |---|---|
-| `/authors` | Lista de autores (en tabla o en tarjetas): buscador, paginación, editar y borrar |
-| `/authors/new` | Nuevo autor |
-| `/authors/:id/edit` | Editar autor |
-| `/books` | Lista de libros (en tabla o en tarjetas): buscador, paginación, editar y borrar |
-| `/books/new` | Nuevo libro |
-| `/books/:id/edit` | Editar libro |
+| `/authors` | lista de autores con buscador y paginacion |
+| `/authors/new` | crear autor |
+| `/authors/:id/edit` | editar autor |
+| `/books` | lista de libros con buscador y paginacion |
+| `/books/new` | crear libro |
+| `/books/:id/edit` | editar libro |
+| `/favourites` | lista de libros marcados como favoritos |
 
-El texto del buscador y la página están en la URL (`/authors?q=cervantes&page=2`).
+el buscador y la pagina se guardan en la URL (/authors?q=cervantes&page=2)
 
-## Estructura del proyecto
+## estructura
 
 ```
 src/
 ├── components/
-│   ├── Layout.tsx         # barra de arriba + <Outlet />, común a todas las rutas
-│   ├── Navbar.tsx         # menú de arriba
-│   ├── AuthorsList.tsx    # lista de autores
-│   ├── AuthorForm.tsx     # crear y editar autores
-│   ├── AuthorCard.tsx     # autor en modo tarjeta (y RoleBadge)
-│   ├── BooksList.tsx      # lista de libros
-│   ├── BookForm.tsx       # crear y editar libros
-│   ├── Pagination.tsx     # paginación, componente hijo de las dos listas
-│   ├── ConfirmModal.tsx   # ventana para confirmar antes de borrar
-│   ├── ViewToggle.tsx     # botones para ver las listas en tabla o en tarjetas
-│   └── Field.tsx          # etiqueta + input + mensaje de error de los formularios
+│   ├── Layout.tsx          # barra de arriba + Outlet, comun a todas las rutas
+│   ├── Navbar.tsx          # menu de navegacion
+│   ├── AuthorsList.tsx     # lista de autores
+│   ├── AuthorForm.tsx      # crear y editar autores
+│   ├── AuthorCard.tsx      # tarjeta de autor
+│   ├── BooksList.tsx       # lista de libros
+│   ├── BookForm.tsx        # crear y editar libros
+│   ├── FavouriteButton.tsx # boton estrella para marcar favoritos
+│   ├── FavouritesList.tsx  # lista de libros favoritos
+│   ├── Pagination.tsx      # paginacion
+│   ├── ConfirmModal.tsx    # modal para confirmar antes de borrar
+│   ├── ViewToggle.tsx      # cambiar entre tabla y tarjetas
+│   └── Field.tsx           # campo de formulario con label y error
 ├── hooks/
-│   ├── useApiList.ts      # pide una lista a la API (useEffect + useReducer)
-│   ├── useListControls.ts # búsqueda y paginación guardadas en la URL (useMemo)
-│   └── useForm.ts         # formularios controlados con validación (useReducer)
+│   ├── useApiList.ts       # pedir listas a la api
+│   ├── useListControls.ts  # busqueda y paginacion en la url
+│   └── useForm.ts          # formularios con validacion
 ├── services/
-│   ├── http.ts            # fetch común: errores, JSON y 204
-│   ├── author.service.ts  # getAuthors, getAuthor, createAuthor, updateAuthor, deleteAuthor
-│   └── book.service.ts    # getBooks, getBook, createBook, updateBook, deleteBook
+│   ├── http.ts             # fetch con manejo de errores
+│   ├── author.service.ts   # operaciones crud de autores
+│   └── book.service.ts     # operaciones crud de libros
 ├── context/
-│   └── ToastContext.tsx   # avisos globales con la Context API
+│   └── ToastContext.tsx    # notificaciones
 ├── stores/
-│   └── viewMode.ts        # estado global (Nanostores): lista o tarjetas
-├── models/                # Author, Book y sus tipos
+│   ├── viewMode.ts         # nanostores: tabla o tarjetas
+│   └── favourites.ts       # nanostores: libros favoritos (con localStorage)
+├── models/                 # tipos Author y Book
 ├── utils/
-│   ├── format.ts          # languageName, truncate, formatDate, formatPrice, initials
-│   ├── api-error.ts       # pasa un error capturado a un texto para la pantalla
-│   └── remove-empty.ts    # quita los campos vacíos antes de enviar un formulario
-├── config/environment.ts  # URL de la API
-├── App.tsx                # rutas
-├── main.tsx               # punto de entrada: BrowserRouter + providers
-└── index.css              # estilos
-public/                    # ficheros estáticos (favicon)
+│   ├── format.ts           # funciones de formato (precio, fecha, idioma...)
+│   ├── api-error.ts        # convierte errores en texto
+│   └── remove-empty.ts     # limpia campos vacios antes de enviar
+├── config/environment.ts   # url de la api
+├── App.tsx                 # rutas
+├── main.tsx                # punto de entrada
+└── index.css               # estilos
 ```
 
-## Librerías
+## librerias
 
-Se ha intentado usar lo mínimo: solo hay una librería de más aparte de React y el router.
-
-| Librería | Para qué se usa |
+| libreria | para que |
 |---|---|
-| [React](https://react.dev/) 19 | Pintar la interfaz con componentes |
-| [React Router](https://reactrouter.com/) (`react-router-dom` 7) | Rutas, enlaces y parámetros de la URL |
-| [Nanostores](https://github.com/nanostores/nanostores) + `@nanostores/react` | Estado global muy pequeño (`atom` y `useStore`) |
-| [Vite](https://vite.dev/) | Servidor de desarrollo y compilación |
-| [Vitest](https://vitest.dev/) | Tests |
-| [Oxlint](https://oxc.rs/docs/guide/usage/linter) | Linter |
+| React 19 | componentes y renderizado |
+| React Router (react-router-dom 7) | rutas y navegacion |
+| Nanostores + @nanostores/react | estado global compartido entre componentes |
+| Vite | servidor de desarrollo y build |
+| Vitest | tests |
+| Oxlint | linter |
 
-Los formularios y la validación están hechos a mano (sin React Hook Form ni Zod) y las peticiones con
-`fetch` (sin axios), para que se vea qué hace cada cosa.
+los formularios y la validacion estan hechos a mano sin librerias externas, y las peticiones con fetch normal sin axios, para que se entienda bien que hace cada cosa
 
-## Cosas de la API que hay que saber
+## cosas de la api que hay que saber
 
-- Editar es un PUT y la API pide siempre los campos obligatorios. En los autores eso incluye la
-  contraseña: al editar hay que escribirla otra vez y se guarda la que se escriba.
-- Un campo opcional que se deja vacío al editar no se borra. La API rechaza los valores vacíos, así
-  que el formulario no los envía y la API deja el valor que tenía. Los tags sí se pueden vaciar: si se
-  desmarcan todos se envía una lista vacía.
-- Borrar un autor no borra sus libros: se quedan sin ese autor (si era el único, en la lista sale
-  "Sin autores").
-- Los mensajes de error de validación que devuelve la API (422) vienen en inglés, de Joi.
-- Si la API no está arrancada, las pantallas enseñan "No se puede conectar con la API".
+- editar es un PUT y siempre pide todos los campos obligatorios, en autores hay que escribir la contraseña otra vez al editar
+- si un campo opcional se deja vacio al editar no se borra (la api rechaza valores vacios, asi que el form directamente no los envia)
+- borrar un autor no borra sus libros, se quedan sin autor
+- los errores de validacion de la api (422) vienen en ingles porque son de Joi
+- si la api no esta arrancada las pantallas muestran "No se puede conectar con la API"

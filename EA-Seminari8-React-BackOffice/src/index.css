@@ -463,3 +463,22 @@ label.checkbox {
   font-size: 0.9rem;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
+
+button.favourite {
+  background: transparent;
+  color: #b0b6c0;
+  border: 1px solid var(--border);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.3rem 0.6rem;
+}
+
+button.favourite:hover:not(:disabled) {
+  background: var(--background);
+  color: #f5a623;
+}
+
+button.favourite.active {
+  color: #f5a623;
+  border-color: #f5a623;
+}
